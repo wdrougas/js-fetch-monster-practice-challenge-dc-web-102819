@@ -28,22 +28,18 @@ function listMonsters(monster) {
 
 function submitHandler(event) {
     event.preventDefault();
-    createNewMonsters(event);
-    getForm.reset();
+    createNewMonsters();
+    getForm().reset();
 }
 
 
-function createMonsterListener() {
-    getForm()
-}
 
-function createNewMonsters(event) {
+function createNewMonsters() {
     let data = {
         'name' : document.querySelector('#name-input').value,
         'age' : document.querySelector('#age-input').value,
         'description' : document.querySelector('#description-input').value
     }
-    debugger
     fetch('http://localhost:3000/monsters', {
         method: 'POST',
         headers: { 

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", monsters)
 
 function monsters() {
     monsterList()
-    document.querySelector('#submit').addEventListener('submit', submitHandler);
+    getForm().addEventListener('submit', submitHandler);
 }
 
 
@@ -15,7 +15,9 @@ function monsterList() {
         })
 }
 
-
+function getForm() {
+    return document.querySelector('form')
+}
 
 function listMonsters(monster) {
         let container = document.getElementById('monster-container')
@@ -26,14 +28,22 @@ function listMonsters(monster) {
 
 function submitHandler(event) {
     event.preventDefault();
-    createNewMonsters();
+    createNewMonsters(event);
     getForm.reset();
 }
 
-function createNewMonsters() {
-    let data = {'name': document.getElementById('name-input').value,
-    'age': document.getElementById('age-input').value,
-    'description': document.getElementById('description-input').value}
+
+function createMonsterListener() {
+    getForm()
+}
+
+function createNewMonsters(event) {
+    let data = {
+        'name' : document.querySelector('#name-input').value,
+        'age' : document.querySelector('#age-input').value,
+        'description' : document.querySelector('#description-input').value
+    }
+    debugger
     fetch('http://localhost:3000/monsters', {
         method: 'POST',
         headers: { 
@@ -44,3 +54,4 @@ function createNewMonsters() {
     }).then(response => response.json())
         .then(data => listMonsters(data));
 }
+
